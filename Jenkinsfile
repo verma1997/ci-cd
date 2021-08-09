@@ -12,7 +12,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 echo 'Building Docker Image'
-                sh 'sudo chmod 666 /var/run/docker.sock'
+                // sh 'sudo chmod 666 /var/run/docker.sock'
                 script {
                     Image = docker.build("searce-playground/priyanshu/go-app")
                 }
