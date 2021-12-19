@@ -14,7 +14,7 @@ pipeline {
                 echo 'Building Docker Image'
                 // sh 'sudo chmod 666 /var/run/docker.sock'
                 script {
-                    Image = docker.build("searce-playground/priyanshu/go-app")
+                    Image = docker.build("<project-id>/priyanshu/go-app")
                 }
             }
         }
@@ -22,7 +22,7 @@ pipeline {
             steps {
                 echo 'Pushing Docker Image'
                 script {
-                    docker.withRegistry('https://gcr.io', 'gcr:searce-playground') {
+                    docker.withRegistry('https://gcr.io', 'gcr:<project-id>') {
                     Image.push(tag)
                     }
                 }    
