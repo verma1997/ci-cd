@@ -1,17 +1,14 @@
 # 
-# Building Stage 
+# Dockerfile
 # 
-FROM golang:1.7 AS builder 
-RUN mkdir -p /build
-WORKDIR /build
-ADD . /build
-RUN CGO_ENABLED=0 GOOS=linux go build ./app.go
+FROM python:3.7-alpine
 
-# 
-# Execution Stage
-# 
-FROM golang:1.7-alpine
-RUN mkdir -p /app
-COPY --from=builder /build /app 
+COPY . /app
+
 WORKDIR /app
-CMD ["./app"]
+
+RUN pip3 install -r requirements.txt
+
+ENTRYPOINT [ "python3"]
+
+CMD [ "app/app.py" ]
