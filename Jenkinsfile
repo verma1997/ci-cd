@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-      tag = '${BUILD_NUMBER}'
+      tag = '${SHORT_SHA}'
     }
     stages {
         stage('Checkout SCM') {
@@ -14,7 +14,7 @@ pipeline {
                 echo 'Building Docker Image'
                 // sh 'sudo chmod 666 /var/run/docker.sock'
                 script {
-                    Image = docker.build("<project-id>/priyanshu/go-app")
+                    Image = docker.build("searce-playground-v1/python-app")
                 }
             }
         }
@@ -22,7 +22,8 @@ pipeline {
             steps {
                 echo 'Pushing Docker Image'
                 script {
-                    docker.withRegistry('https://gcr.io', 'gcr:<project-id>') {
+                    docker.withRegistry('https://gcr.io', 'gcr:searce-playground-v1') {
+                    Image.push("latest")
                     Image.push(tag)
                     }
                 }    
